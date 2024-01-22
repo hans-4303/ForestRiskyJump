@@ -14,8 +14,9 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter (Collider other)
     {
-        onPlayerDead.Invoke ();
+        this.onPlayerDead.Invoke ();
         Debug.Log("YOU DIED");
         Object.Destroy(this.gameObject);
     }
 }
+
