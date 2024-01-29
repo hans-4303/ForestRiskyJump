@@ -6,10 +6,17 @@ public class Charactor : MonoBehaviour
 {
     /// <summary>
     /// <para>
-    ///     이벤트를 쓰지 않는다면 클래스 내지 인스턴스를 알아야 함
+    ///     캐릭터를 파라미터로 받아 void로 끝내는 메서드 전달 허용
     /// </para>
     /// </summary>
-    public Booster booster;
+    public delegate void Boost (Charactor target);
+
+    /// <summary>
+    /// <para>
+    ///     위 형식을 갖는 멤버 이벤트
+    /// </para>
+    /// </summary>
+    public event Boost playerBoost;
 
     public string playerName = "Jonnie";
 
@@ -19,11 +26,19 @@ public class Charactor : MonoBehaviour
 
     /// <summary>
     /// <para>
-    ///     이벤트 쓰지 않음으로 인해 일일이 접근
+    ///     멤버 이벤트 호출
     /// </para>
     /// </summary>
-    private void Awake ()
+    private void Start ()
     {
-        booster.HealthBoost(this);
+        playerBoost?.Invoke(this);
+    }
+
+    private void Update ()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            playerBoost?.Invoke(this);
+        }
     }
 }
